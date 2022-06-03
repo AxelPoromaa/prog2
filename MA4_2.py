@@ -14,7 +14,7 @@ print("hello")
 from person import Person
 
 def main():
-	n = 10
+	n = 30
 	t = Person(n)
 	tstart = time.perf_counter()
 	result = t.fib_py()
@@ -22,11 +22,11 @@ def main():
 	print(f"Measured time for c++ : {tstop - tstart} seconds")
 	print("C++ fib:", result)
 	
-	#pythontstart = time.perf_counter()
-	#this = fib_python(n)
-	#pythontstop = time.perf_counter()
-	#print(f"Measured time for python: {pythontstop - pythontstart} seconds")
-	#print("python:", this)
+	pythontstart = time.perf_counter()
+	this = fib_python(n)
+	pythontstop = time.perf_counter()
+	print(f"Measured time for python: {pythontstop - pythontstart} seconds")
+	print("python:", this)
 
 
 
