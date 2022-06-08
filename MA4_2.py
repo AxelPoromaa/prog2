@@ -1,8 +1,19 @@
 #!/usr/bin/env python3.9
+
 import time
 from numba import njit
-
+from person import Person
+from matplotlib import pyplot as plt
+import numpy as np
 @njit
+def fib_numba(n):
+	if n <= 1:
+		return n
+	else:
+		return fib_numba(n-1) + fib_numba(n-2)
+
+
+
 def fib_python(n):
 	if n <= 1:
 		return n
@@ -10,71 +21,39 @@ def fib_python(n):
 		return fib_python(n-1) + fib_python(n -2)
 
 
-print("hello")
-from person import Person
-
 def main():
-	n = 30
+	n = 5
 	t = Person(n)
 	tstart = time.perf_counter()
-	result = t.fib_py()
+	result_fib = t.fib()
 	tstop = time.perf_counter()
 	print(f"Measured time for c++ : {tstop - tstart} seconds")
-	print("C++ fib:", result)
+	print("C++ fib:", result_fib)
+
+	tstart = time.perf_counter()
+	result_python_fib = fib_python(n)
+	tstop = time.perf_counter()
+	print(f"Measured time for python: {tstop - tstart} seconds")
+	print("Python fib:", result_python_fib)
+
+	tstart = time.perf_counter()
+	result_python_numba_fib = fib_numba(n)
+	tstop = time.perf_counter()
+	print(f"Measured time for python + numba: {tstop - tstart} seconds")
+	print("Python + numba fib", result_python_numba_fib)
+
 	
-	pythontstart = time.perf_counter()
-	this = fib_python(n)
-	pythontstop = time.perf_counter()
-	print(f"Measured time for python: {pythontstop - pythontstart} seconds")
-	print("python:", this)
+	#plt.xlabel("n")
+	#plt.ylabel("seconds")
+	#plt.plot(n, result_fib)
+	#plt.show()
+	
+	x = np.arange(1, 11)
+	y = 2 * x + 5
+	plt.xlabel("X")
+	plt.plot(x, y)
+	plt.show()
+	
 
-
-
-	#f = Person(5)
-	#print(f.get())
-	#f.set(7)
-	#print(f.get())
-	#this = f.get()
-	#fib_result = f.fib_py()
-	#print("fib", this, "is equal to:", fib_result)
-	#f = Person(0)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(1)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(2)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(3)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(4)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(5)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(6)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(7)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(8)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(9)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(10)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(18)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
-	#f = Person(47)
-	#fib_result = f.fib_py()
-	#print("fib", f.get(), "is equal to:", fib_result)
 if __name__ == '__main__':
 	main()

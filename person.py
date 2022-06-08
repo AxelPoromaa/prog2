@@ -1,4 +1,6 @@
 
+
+
 """ Python interface to the C++ Person class """
 import ctypes
 lib = ctypes.cdll.LoadLibrary('./libperson.so')
@@ -11,8 +13,8 @@ class Person(object):
 		# restypes är vad funktionen returnerar
 		lib.Person_new.argtypes = [ctypes.c_int]
 
-		lib.Person_fib_py.argtypes = [ctypes.c_void_p]
-		lib.Person_fib_py.restype = ctypes.c_int
+		lib.Person_fib.argtypes = [ctypes.c_void_p]
+		lib.Person_fib.restype = ctypes.c_int
 
 		lib.Person_new.restype = ctypes.c_void_p
 		lib.Person_get.argtypes = [ctypes.c_void_p]
@@ -32,7 +34,13 @@ class Person(object):
 	def __del__(self):
 		return lib.Person_delete(self.obj)
 
-	def fib_py(self):
+
+	def fib(self):
+		return lib.Person_fib(self.obj)
+
+
+	
+	#def fib_py(self):
 #		print("Type self:", type(self))
 #		print("Type get:", self.get())
 		#print("Type set:", self.set(1337))
@@ -53,14 +61,18 @@ class Person(object):
 		#print("AGE:", age)
 
 
-		if self.get() <= 1:
-			return self.get()
-			#return lib.Person_fib_py(self.obj)
-		else:	
+#		if self.get() <= 1:
+#			return self.get()
+#			#return lib.Person_fib_py(self.obj)
+#		else:	
 			
-			b = Person(self.get()-2)
-			self.set(self.get()-1)
-			return self.fib_py() + b.fib_py()
+
+			
+
+
+			#b = Person(self.get()-2)
+			#self.set(self.get()-1)
+			#return self.fib_py() + b.fib_py()
 			#print("Type?", type(self.get()))
 			
 
